@@ -1,175 +1,186 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 
 public class MyTests {
-  @Test
-  public void testIsSimplified() {
-    assertEquals(
-        true,
-        new Rational(1, 2).isSimplified(),
-        "The output of checking if the Rational 1/2 is simplified should be: true");
-    assertEquals(
-        true,
-        new Rational(2, 3).isSimplified(),
-        "The output of checking if the Rational 2/3 is simplified should be: true");
-    assertEquals(
-        false,
-        new Rational(2, 4).isSimplified(),
-        "The output of checking if the Rational 2/4 is simplified should be: false");
-    assertEquals(
-        false,
-        new Rational(4, 2).isSimplified(),
-        "The output of checking if the Rational 4/2 is simplified should be: false");
-  }
 
-  @Test
-  public void testCalculateDoubleValue() {
-    assertEquals(
-        1.5,
-        new Rational(3, 2).calculateDecimalValue(),
-        0.01,
-        "The output of calculating the double value of the Rational 3/2 is simplified should be:"
-            + " 1.5");
-    assertEquals(
-        0.25,
-        new Rational(1, 4).calculateDecimalValue(),
-        0.01,
-        "The output of calculating the double value of the Rational 1/4 is simplified should be:"
-            + " 0.25");
-  }
+    // Shape tests
+    @Test
+    public void testShapeConstructorAndGetArea() {
+        Shape shape = new Shape(100);
+        assertEquals(100, shape.getArea());
+    }
 
-  @Test
-  public void testPow() {
-    assertEquals(
-        "1/4",
-        new Rational(1, 2).pow(2).toString(),
-        "The output of raising the Rational 1/2 to the power of 2 should be: 1/4");
-    assertEquals(
-        "1/16",
-        new Rational(1, 4).pow(2).toString(),
-        "The output of raising the Rational 1/4 to the power of 2 should be: 1/16");
-    assertEquals(
-        "125/216",
-        new Rational(5, 6).pow(3).toString(),
-        "The output of raising the Rational 5/6 to the power of 3 should be: 125/216");
-  }
+    @Test
+    public void testShapeHowCool() {
+        Shape shape = new Shape(50);
+        assertEquals(5, shape.howCoolIsThisShape());
+    }
 
-  @Test
-  public void testContains() {
-    assertEquals(
-        true,
-        new Rational(1, 2).contains(2),
-        "The output of checking if the Rational 1/2 contains the number 2 should be: true");
-    assertEquals(
-        true,
-        new Rational(2, 1).contains(2),
-        "The output of checking if the Rational 2/1 contains the number 2 should be: true");
-    assertEquals(
-        false,
-        new Rational(2, 1).contains(3),
-        "The output of checking if the Rational 2/1 contains the number 3 should be: false");
-    assertEquals(
-        false,
-        new Rational(2, 1).contains(3),
-        "The output of checking if the Rational 2/1 contains the number 3 should be: false");
-  }
+    // Rectangle tests
+    @Test
+    public void testRectangleConstructor() {
+        Rectangle rect = new Rectangle(5, 10);
+        assertEquals(50, rect.getArea());
+    }
 
-  @Test
-  public void testIncrement() {
-    Rational r = new Rational(3, 8);
-    r.increment();
-    assertEquals("11/8", r.toString(), "Incrementing 3/8 should give the result: 11/8");
-    Rational s = new Rational(3, 2);
-    s.increment();
-    assertEquals("5/2", s.toString(), "Incrementing 3/2 should give the result: 5/2");
-  }
+    @Test
+    public void testRectangleGetters() {
+        Rectangle rect = new Rectangle(7, 8);
+        assertEquals(7, rect.getWidth());
+        assertEquals(8, rect.getHeight());
+    }
 
-  @Test
-  public void testDecrement() {
-    Rational r = new Rational(11, 8);
-    r.decrement();
-    assertEquals("3/8", r.toString(), "Incrementing 11/8 should give the result: 3/8");
-    Rational s = new Rational(5, 2);
-    s.decrement();
-    assertEquals("3/2", s.toString(), "Incrementing 5/2 should give the result: 3/2");
-  }
+    @Test
+    public void testRectangleSetters() {
+        Rectangle rect = new Rectangle(5, 10);
+        rect.setWidth(6);
+        rect.setHeight(12);
+        assertEquals(6, rect.getWidth());
+        assertEquals(12, rect.getHeight());
+        assertEquals(72, rect.getArea());
+    }
 
-  @Test
-  public void testChangeToEquivalentFraction() {
-    Rational r = new Rational(3, 8);
-    r.changeToEquivalentFraction(64);
-    assertEquals(
-        "24/64", r.toString(), "The equivalent fraction of 3/8 with the base 64 is: 24/64");
-    Rational s = new Rational(1, 2);
-    s.changeToEquivalentFraction(100);
-    assertEquals(
-        "50/100", s.toString(), "The equivalent fraction of 1/2 with the base 100 is: 50/100");
-    Rational t = new Rational(16, 8);
-    t.changeToEquivalentFraction(4);
-    assertEquals("8/4", t.toString(), "The equivalent fraction of 16/8 with the base 4 is: 16/4");
-  }
+    @Test
+    public void testRectangleHowCool() {
+        Rectangle rect = new Rectangle(4, 5);
+        assertEquals(7, rect.howCoolIsThisShape());
+    }
 
-  // Homework Methods
+    @Test
+    public void testRectangleWithZeroDimensions() {
+        Rectangle rect = new Rectangle(0, 0);
+        assertEquals(0, rect.getArea());
+    }
 
-  @Test
-  public void testIsNegative() {
-    assertEquals(
-        false,
-        new Rational(1, 2).isNegative(),
-        "The output of checking if the Rational 1/2 is negative should be: false");
-    assertEquals(
-        true,
-        new Rational(-1, 2).isNegative(),
-        "The output of checking if the Rational -1/2 is negative should be: true");
-    assertEquals(
-        true,
-        new Rational(1, -2).isNegative(),
-        "The output of checking if the Rational 1/-2 is negative should be: true");
-    assertEquals(
-        false,
-        new Rational(-1, -2).isNegative(),
-        "The output of checking if the Rational -1/-2 is negative should be: false");
-  }
+    // Square tests
+    @Test
+    public void testSquareConstructor() {
+        Square square = new Square(5);
+        assertEquals(25, square.getArea());
+    }
 
-  @Test
-  public void testReciprocal() {
-    assertEquals(
-        "1/2",
-        new Rational(2, 1).reciprocal().toString(),
-        "The reciprocal of the Rational 2/1 is: 1/2");
-    assertEquals(
-        "3/2",
-        new Rational(2, 3).reciprocal().toString(),
-        "The reciprocal of the Rational 2/3 is: 3/2");
-  }
+    @Test
+    public void testSquareHowCool() {
+        Square square = new Square(4);
+        assertEquals(10, square.howCoolIsThisShape());
+    }
 
-  @Test
-  public void testEquals() {
-    assertEquals(
-        false,
-        new Rational(1, 2).equals(new Rational(1, 3)),
-        "The output of checking if the Rational 1/2 equals the Rational 1/3 should be: false");
-    assertEquals(
-        false,
-        new Rational(2, 3).equals(new Rational(1, 3)),
-        "The output of checking if the Rational 2/3 equals the Rational 1/3 should be: false");
-    assertEquals(
-        true,
-        new Rational(2, 3).equals(new Rational(2, 3)),
-        "The output of checking if the Rational 2/3 equals the Rational 2/3 should be: true");
-  }
+    @Test
+    public void testSquareIsRectangle() {
+        Square square = new Square(6);
+        assertEquals(6, square.getWidth());
+        assertEquals(6, square.getHeight());
+    }
 
-  @Test
-  public void testRound() {
-    Rational r = new Rational(19, 8);
-    r.round();
-    assertEquals("2/1", r.toString(), "Rounding 19/8 should give the result: 2/1");
-    Rational s = new Rational(4, 10);
-    s.round();
-    assertEquals("0/1", s.toString(), "Rounding 4/10 should give the result: 0/1");
-    Rational t = new Rational(5, 10);
-    t.round();
-    assertEquals("1/1", t.toString(), "Rounding 5/10 should give the result: 1/1");
-  }
+    @Test
+    public void testSquareWithZeroSide() {
+        Square square = new Square(0);
+        assertEquals(0, square.getArea());
+    }
+
+    // ArrayListPractice tests
+    @Test
+    public void testCombineValuesEmpty() {
+        ArrayList<Integer> list = new ArrayList<>();
+        assertEquals(0, ArrayListPractice.combineValues(list));
+    }
+
+    @Test
+    public void testCombineValuesSingle() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(5);
+        assertEquals(5, ArrayListPractice.combineValues(list));
+    }
+
+    @Test
+    public void testCombineValuesMultiple() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        assertEquals(10, ArrayListPractice.combineValues(list));
+    }
+
+    @Test
+    public void testCombineValuesNegative() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(-5);
+        list.add(10);
+        list.add(-3);
+        assertEquals(2, ArrayListPractice.combineValues(list));
+    }
+
+    @Test
+    public void testMakeList() {
+        ArrayList<String> result = ArrayListPractice.makeList("apple", "banana", "cherry");
+        assertNotNull(result);
+        assertEquals(3, result.size());
+        assertEquals("apple", result.get(0));
+        assertEquals("banana", result.get(1));
+        assertEquals("cherry", result.get(2));
+    }
+
+    @Test
+    public void testInterweaveEmpty() {
+        ArrayList<Integer> list = new ArrayList<>();
+        int[] array = new int[0];
+        ArrayList<Integer> result = ArrayListPractice.interweave(list, array);
+        assertNotNull(result);
+        assertEquals(0, result.size());
+    }
+
+    @Test
+    public void testInterweaveSingle() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        int[] array = {2};
+        ArrayList<Integer> result = ArrayListPractice.interweave(list, array);
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals(1, result.get(0));
+        assertEquals(2, result.get(1));
+    }
+
+    @Test
+    public void testInterweaveMultiple() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(3);
+        list.add(5);
+        int[] array = {2, 4, 6};
+        ArrayList<Integer> result = ArrayListPractice.interweave(list, array);
+        assertNotNull(result);
+        assertEquals(6, result.size());
+        assertEquals(1, result.get(0));
+        assertEquals(2, result.get(1));
+        assertEquals(3, result.get(2));
+        assertEquals(4, result.get(3));
+        assertEquals(5, result.get(4));
+        assertEquals(6, result.get(5));
+    }
+
+    @Test
+    public void testInterweaveLonger() {
+        ArrayList<Integer> list = new ArrayList<>();
+        list.add(10);
+        list.add(20);
+        list.add(30);
+        list.add(40);
+        int[] array = {15, 25, 35, 45};
+        ArrayList<Integer> result = ArrayListPractice.interweave(list, array);
+        assertNotNull(result);
+        assertEquals(8, result.size());
+        assertEquals(10, result.get(0));
+        assertEquals(15, result.get(1));
+        assertEquals(20, result.get(2));
+        assertEquals(25, result.get(3));
+        assertEquals(30, result.get(4));
+        assertEquals(35, result.get(5));
+        assertEquals(40, result.get(6));
+        assertEquals(45, result.get(7));
+    }
 }

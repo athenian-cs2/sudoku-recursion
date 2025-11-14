@@ -1,3 +1,6 @@
-Rational Class (Version 2)
+This practice assignment will help you shore up your skills around inheritance and ArrayLists.
 
-In this assignment, you'll be adding to your implementation of the Rational class. Please see Canvas for details on the classwork/homework.
+For ArrayLists, open ArrayListPractice and implement the methods there.
+
+For classes and inheritance practice, read through the Shape class, then implement the
+Rectangle and Square classes.
